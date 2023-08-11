@@ -3,6 +3,8 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
+    /**/
+
     ViewBag.Title = "Students";
 }
 
@@ -32,10 +34,12 @@
         <th></th>
     </tr>
 
-
+    <div>
+        <p>Bewlo is generated from a partial view</p>
+    </div>
     @foreach (var item in Model)
     {
-        <tr>
+        @*<tr>
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
@@ -50,11 +54,15 @@
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
-        </tr>
+        </tr>*@
+        @Html.Partial("_StudentPartialView", item);
     }
 
 </table>
 <br />
+<div>
+   
+</div>
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
