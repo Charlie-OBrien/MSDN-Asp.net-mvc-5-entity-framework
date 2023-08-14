@@ -39,7 +39,23 @@ namespace ContosoUniversity.Controllers
         // GET: Slots/Create
         public ActionResult Create()
         {
+            //var instructors = db.Instructors.ToList();
+            //ViewBag.InstructorId = new SelectList(instructors, "Id", "FirstName");
+            PopulateInstructorDropDownList();
             return View();
+        }
+
+        private void PopulateInstructorDropDownList(object selectedInstructor = null)
+        {
+            var instructorsQuery = from i in db.Instructors
+                                   orderby i.HireDate
+                                   select new
+                                   {
+                                       Id = i.HireDate,
+                                       FullName = i.FirstMidName + " " + i.LastName // Assuming these are the correct properties
+                                   };
+
+            ViewBag.Instructors = new SelectList(instructorsQuery, "Id", "FullName", selectedInstructor);
         }
 
         // POST: Slots/Create

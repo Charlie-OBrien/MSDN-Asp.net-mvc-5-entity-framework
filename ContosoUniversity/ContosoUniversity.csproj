@@ -175,6 +175,10 @@
     <Compile Include="Migrations\202308132304065_AddSlotModel.Designer.cs">
       <DependentUpon>202308132304065_AddSlotModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308140059567_setupslot.cs" />
+    <Compile Include="Migrations\202308140059567_setupslot.Designer.cs">
+      <DependentUpon>202308140059567_setupslot.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Department.cs" />
@@ -301,6 +305,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308132304065_AddSlotModel.resx">
       <DependentUpon>202308132304065_AddSlotModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308140059567_setupslot.resx">
+      <DependentUpon>202308140059567_setupslot.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

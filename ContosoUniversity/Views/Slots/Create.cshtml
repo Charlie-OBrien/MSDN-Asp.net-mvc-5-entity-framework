@@ -38,6 +38,14 @@
                 @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.InstructorId, "Instructor", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("InstructorId", ViewData["Instructors"] as SelectList, "Select an Instructor", new { @class = "form-control" })
+                @*@Html.DropDownList("SelectedDepartmentMine", ViewBag.SelectedDepartmentMine as SelectList, "All")*@
+                @*@Html.ValidationMessageFor(model => model.InstructorId)*@
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
