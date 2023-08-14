@@ -14,6 +14,7 @@ namespace ContosoUniversity.DAL
         public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<TrainingBooking> Bookings { get; set; }
+        public DbSet<Slot> Slots { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

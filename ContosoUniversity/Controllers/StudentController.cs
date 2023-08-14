@@ -10,6 +10,7 @@ using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
 using PagedList;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 
 namespace ContosoUniversity.Controllers
 {
@@ -192,6 +193,29 @@ namespace ContosoUniversity.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public JsonResult GetDates()
+        {
+            var dateRanges = db.Slots.Select(s => new
+            {
+                StartDate = s.StartDate,
+                EndDate = s.EndDate,
+                //Id = s.Id
+            }).ToList();
+            foreach(var i in dateRanges)
+            {
+                Debug.WriteLine("The is " + i.ToString());
+            }
+            return Json(dateRanges, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetData()
+        {
+            // Example data
+            return Json(new { message = "Hello from server!" }, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
