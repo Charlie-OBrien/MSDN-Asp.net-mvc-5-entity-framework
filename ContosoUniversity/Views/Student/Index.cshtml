@@ -40,30 +40,59 @@
     @foreach (var item in Model)
     {
         @*<tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstMidName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnrollmentDate)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-        </tr>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstMidName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnrollmentDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>*@
         @Html.Partial("_StudentPartialView", item);
     }
 
 </table>
 <br />
 <div>
-   
+    <p>Hello World</p>
+    <input type="submit" value="Alert" class="btn btn-default" id="btnSubmit" />
 </div>
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(function () {
+            $('#btnSubmit').click(function (event) {
+                event.preventDefault();
+                //alert("Hello");
+                $.ajax({
+                    //url: "https://catfact.ninja/fact",
+                    url: "/Student/GetDates",
+                    //url: "/Student/GetData",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        window.alert(JSON.stringify(response));
+                        //console.log(JSON.stringify(response));
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching cat fact:", error);
+                    }
+                });
+            });
+        });
+    </script>
+}
+
