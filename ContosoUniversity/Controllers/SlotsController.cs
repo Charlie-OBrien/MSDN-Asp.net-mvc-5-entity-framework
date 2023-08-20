@@ -47,6 +47,8 @@ namespace ContosoUniversity.Controllers
 
         private void PopulateInstructorDropDownList(object selectedInstructor = null)
         {
+
+
             var instructorsQuery = from i in db.Instructors
                                    orderby i.HireDate
                                    select new
@@ -61,19 +63,51 @@ namespace ContosoUniversity.Controllers
         // POST: Slots/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,type")] Slot slot)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Slots.Add(slot);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    return View(slot);
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,type")] Slot slot)
+        public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,type,InstructorId")] Slot slot)
         {
+            if (slot.InstructorId <= 0)
+            {
+                ModelState.AddModelError("InstructorId", "You must select an instructor.");
+
+                // Repopulate the Instructor dropdown list.
+                PopulateInstructorDropDownList(slot.InstructorId);
+                return View(slot);
+            }
+
             if (ModelState.IsValid)
             {
+                // Get the instructor's full name using the InstructorId.
+                var instructor = db.Instructors.Find(slot.InstructorId);
+                if (instructor != null)
+                {
+                    slot.InstructorName = instructor.FirstMidName + " " + instructor.LastName;
+                }
+
                 db.Slots.Add(slot);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            // If the ModelState is not valid or the instructor is not found, repopulate the instructor dropdown list
+            PopulateInstructorDropDownList(slot.InstructorId);
             return View(slot);
         }
+
 
         // GET: Slots/Edit/5
         public ActionResult Edit(int? id)

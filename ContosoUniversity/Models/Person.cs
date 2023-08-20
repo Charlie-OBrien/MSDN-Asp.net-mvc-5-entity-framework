@@ -28,5 +28,7 @@ namespace ContosoUniversity.Models
         }
 
         public virtual ICollection<TrainingBooking> Bookings { get; set; }
+
+ 
     }
 }

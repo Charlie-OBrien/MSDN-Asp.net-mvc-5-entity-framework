@@ -1,0 +1,14 @@
+﻿@model ContosoUniversity.ViewModels.BookDetailsViewModel
+
+<h2>@Model.Book.Title by @Model.Book.Author</h2>
+<p>Published on: @Model.Book.PublishedDate.ToString("yyyy-MM-dd")</p>
+
+<h3>Reviews:</h3>
+@foreach (var review in Model.Reviews)
+{
+    <div>
+        <strong>@review.ReviewerName</strong>
+        <p>@review.Content</p>
+        <p>@review.ReviewDate.ToString("yyyy-MM-dd")</p>
+    </div>
+}

@@ -13,7 +13,8 @@ namespace ContosoUniversity.Models
 
         public string type { get; set; }
 
-        public int? InstructorId { get; set; }
+        public string InstructorName { get; set; }
+        public int InstructorId { get; set; }
         public virtual Instructor Instructor { get; set; }
 
     }
